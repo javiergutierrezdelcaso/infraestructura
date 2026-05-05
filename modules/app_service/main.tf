@@ -13,7 +13,9 @@ resource "azurerm_linux_web_app" "app" {
   service_plan_id     = azurerm_service_plan.plan.id
 
   site_config {
-    linux_fx_version = "DOTNETCORE|8.0"
+    application_stack {
+      dotnet_version = "8.0"
+    }
   }
 
   app_settings = {
