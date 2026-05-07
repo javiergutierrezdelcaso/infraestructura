@@ -34,17 +34,3 @@ module "app_service_pro" {
   app_env         = "PRO"
   sku_name        = var.sku_name
 }
-
-############################################
-# OUTPUTS
-############################################
-
-output "pre_app_url" {
-  description = "URL del App Service PRE"
-  value       = module.app_service_pre.app_url
-}
-
-output "pro_app_url" {
-  description = "URL del App Service PRO"
-  value       = module.app_service_pro.app_url
-}
