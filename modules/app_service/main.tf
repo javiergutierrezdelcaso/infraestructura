@@ -11,7 +11,7 @@ resource "azurerm_service_plan" "plan" {
 }
 
 ############################################
-# LINUX WEB APP
+# LINUX WEB APP (Pode + PowerShell 7.2)
 ############################################
 
 resource "azurerm_linux_web_app" "app" {
@@ -21,12 +21,13 @@ resource "azurerm_linux_web_app" "app" {
   service_plan_id     = azurerm_service_plan.plan.id
 
   site_config {
-    application_stack {
-      dotnet_version = "8.0"
-    }
+    linux_fx_version = "powershell|7.2"
   }
 
   app_settings = {
-    "APP_ENV" = var.app_env
+    "APP_ENV"                             = var.app_env
+    "WEBSITES_PORT"                       = "8080"
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
+    "STARTUP_COMMAND"                     = "/home/site/wwwroot/startup.sh"
   }
 }

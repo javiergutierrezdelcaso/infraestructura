@@ -11,32 +11,13 @@ variable "project_name" {
 variable "location" {
   type        = string
   description = "Región de Azure donde se desplegarán los recursos"
-  default     = "westeurope"
+  default     = "spaincentral"
 }
 
 variable "resource_group_name" {
   type        = string
   description = "Nombre del Resource Group principal"
   default     = "rg-ecoanalyzer"
-}
-
-############################################
-# VARIABLES DE AUTENTICACIÓN (TERRAFORM CLOUD)
-############################################
-
-variable "client_id" {
-  type        = string
-  description = "Client ID de la aplicación OIDC"
-}
-
-variable "tenant_id" {
-  type        = string
-  description = "Tenant ID de Azure"
-}
-
-variable "subscription_id" {
-  type        = string
-  description = "Subscription ID de Azure"
 }
 
 ############################################
