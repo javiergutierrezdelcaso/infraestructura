@@ -37,11 +37,13 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan PRE
-        run: terraform plan \
-              -var="environment=pre" \
-              -var="tenant_id=${ARM_TENANT_ID}" \
-              -var="subscription_id=${ARM_SUBSCRIPTION_ID}" \
-              -var="client_id=${ARM_CLIENT_ID}"
+        run: |
+          terraform plan \
+            -var="environment=pre" \
+            -var="tenant_id=${ARM_TENANT_ID}" \
+            -var="subscription_id=${ARM_SUBSCRIPTION_ID}" \
+            -var="client_id=${ARM_CLIENT_ID}"
+
 
 
       - name: Install tfsec
