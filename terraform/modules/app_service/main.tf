@@ -12,13 +12,13 @@ resource "azurerm_linux_web_app" "app" {
   resource_group_name = var.resource_group
   service_plan_id     = azurerm_service_plan.plan.id
 
+  # ✅ CKV_AZURE_14 – forzar HTTPS (correcto en v4.x)
+  https_only = true
+
   site_config {
     application_stack {
       dotnet_version = "8.0"
     }
-
-    # ✅ CKV_AZURE_14 – forzar HTTPS
-    redirect_http_to_https = true
 
     # ✅ CKV_AZURE_78 – deshabilitar FTP
     ftps_state = "Disabled"
