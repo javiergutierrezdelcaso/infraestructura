@@ -12,7 +12,7 @@ resource "azurerm_linux_web_app" "app" {
   resource_group_name = var.resource_group
   service_plan_id     = azurerm_service_plan.plan.id
 
-  # ✅ CKV_AZURE_14 – forzar HTTPS (correcto en v4.x)
+  # HTTPS obligatorio (correcto en AzureRM 4.x)
   https_only = true
 
   site_config {
@@ -20,11 +20,12 @@ resource "azurerm_linux_web_app" "app" {
       dotnet_version = "8.0"
     }
 
-    # ✅ CKV_AZURE_78 – deshabilitar FTP
+    # FTP deshabilitado
     ftps_state = "Disabled"
 
-    # ✅ CKV_AZURE_213 – health check
-    health_check_path = "/"
+    # Health check (ambos requeridos)
+    health_check_path                  = "/"
+    health_check_eviction_time_in_min  = 10
   }
 
   app_settings = {
