@@ -47,16 +47,14 @@ jobs:
           ARM_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
           ARM_TENANT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
           ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
-
         run: |
           terraform plan \
             -var="environment=pre" \
+            -var="client_id=${ARM_CLIENT_ID}" \
+            -var="client_secret=${ARM_CLIENT_SECRET}" \
             -var="tenant_id=${ARM_TENANT_ID}" \
-            -var="subscription_id=${ARM_SUBSCRIPTION_ID}" \
-            -var="client_id=${ARM_CLIENT_ID}"
-
-
-
+            -var="subscription_id=${ARM_SUBSCRIPTION_ID}"
+            
       - name: Install tfsec
         run: |
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
