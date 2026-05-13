@@ -15,6 +15,10 @@ jobs:
     defaults:
       run:
         working-directory: terraform
+    env:
+      ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
 
     steps:
       - name: Checkout
@@ -33,7 +37,12 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan PRE
-        run: terraform plan -var="environment=pre"
+        run: terraform plan \
+              -var="environment=pre" \
+              -var="tenant_id=${ARM_TENANT_ID}" \
+              -var="subscription_id=${ARM_SUBSCRIPTION_ID}" \
+              -var="client_id=${ARM_CLIENT_ID}"
+
 
       - name: Install tfsec
         run: |
