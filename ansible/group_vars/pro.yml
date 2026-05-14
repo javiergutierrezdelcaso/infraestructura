@@ -1,2 +1,3 @@
-app_env: "pro"
-app_url: "https://ecoanalyzer-pro.azurewebsites.net"
+---
+app_env: "PRO"
+zip_path: "../microservicio/app.zip"
