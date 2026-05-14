@@ -4,6 +4,6 @@
   gather_facts: false
 
   roles:
-    - validate
+    - { role: validate,   when: deploy is defined }
     - appservice
     - tests
