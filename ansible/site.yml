@@ -3,8 +3,12 @@
   hosts: ecoanalyzer
   gather_facts: false
 
-
   roles:
-    - {role: validate, when: deploy is defined}
-    - {role: appservice, when: deploy is defined}
-    - tests
+    - role: validate
+      when: deploy is defined
+
+    - role: appservice
+      when: deploy is defined
+
+    - role: tests
+      when: deploy is defined

@@ -1,4 +1,8 @@
 ---
+- name: Saltar tests en CI
+  meta: end_play
+  when: deploy is not defined
+
 - name: Test de salud
   ansible.builtin.uri:
     url: "{{ app_url }}/health"
