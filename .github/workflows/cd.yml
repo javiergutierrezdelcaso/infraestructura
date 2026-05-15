@@ -18,8 +18,6 @@ jobs:
       ARM_TENANT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
       ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
 
-
-      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -84,10 +82,30 @@ jobs:
       - name: Install Ansible
         run: |
           sudo apt update
-          sudo apt install -y ansible python3-pip
+          sudo apt install -y ansible python3-pip jq
 
-      - name: Run Ansible with dynamic inventory
+      - name: Set APP_URL (PRE)
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          echo "APP_URL=$(jq -r '.app_url.value' terraform-outputs.json)" >> $GITHUB_ENV
+
+      - name: Set APP_URL (PRO)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "APP_URL=$(jq -r '.app_url.value' terraform-outputs.json)" >> $GITHUB_ENV
+
+      - name: Run Ansible PRE
+        if: github.ref == 'refs/heads/develop'
         run: |
           ansible-playbook \
-            -i playbooks/dynamic_inventory_from_terraform.py \
-            playbooks/site.yml
+            -i inventories/pre/hosts \
+            site.yml \
+            -e "app_url=${APP_URL}"
+
+      - name: Run Ansible PRO
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ansible-playbook \
+            -i inventories/pro/hosts \
+            site.yml \
+            -e "app_url=${APP_URL}"
