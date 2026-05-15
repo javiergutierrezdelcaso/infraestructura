@@ -19,6 +19,7 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
 
 
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
