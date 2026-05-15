@@ -1,0 +1,3 @@
+---
+app_env: "PRE"
+zip_path: "../microservicio/app.zip"
