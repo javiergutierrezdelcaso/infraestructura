@@ -9,5 +9,5 @@ module "app_service" {
   location       = var.location
   resource_group = "rg-ecoanalyzer-pro"
   app_env        = "pro"
-  sku_name       = "F1"
+  sku_name       = "B1"
 }
